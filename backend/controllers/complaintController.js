@@ -1,8 +1,7 @@
 const Complaint = require("../models/Complaint");
 
-
 // CREATE COMPLAINT
-exports.createComplaint = async (req, res) => {
+const createComplaint = async (req, res) => {
   try {
 
     const complaint = new Complaint({
@@ -18,17 +17,19 @@ exports.createComplaint = async (req, res) => {
     res.status(201).json(savedComplaint);
 
   } catch (error) {
+
     res.status(500).json({ message: error.message });
+
   }
 };
 
 
-// GET ALL COMPLAINTS
-exports.getComplaints = async (req, res) => {
+// GET COMPLAINTS
+const getComplaints = async (req, res) => {
 
   try {
 
-    const complaints = await Complaint.find().sort({ createdAt: -1 });
+    const complaints = await Complaint.find();
 
     res.json(complaints);
 
@@ -41,8 +42,8 @@ exports.getComplaints = async (req, res) => {
 };
 
 
-// UPDATE COMPLAINT STATUS
-exports.updateComplaint = async (req, res) => {
+// UPDATE COMPLAINT
+const updateComplaint = async (req, res) => {
 
   try {
 
@@ -52,10 +53,6 @@ exports.updateComplaint = async (req, res) => {
       { new: true }
     );
 
-    if (!complaint) {
-      return res.status(404).json({ message: "Complaint not found" });
-    }
-
     res.json(complaint);
 
   } catch (error) {
@@ -64,4 +61,11 @@ exports.updateComplaint = async (req, res) => {
 
   }
 
+};
+
+
+module.exports = {
+  createComplaint,
+  getComplaints,
+  updateComplaint
 };

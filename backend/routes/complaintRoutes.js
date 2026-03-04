@@ -1,19 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  createComplaint,
-  getComplaints,
-  updateComplaint
-} = require("../controllers/complaintController");
+const complaintController = require("../controllers/complaintController");
 
-// Create complaint
-router.post("/", createComplaint);
-
-// Get all complaints
-router.get("/", getComplaints);
-
-// Update complaint status
-router.put("/:id", updateComplaint);
+router.post("/", complaintController.createComplaint);
+router.get("/", complaintController.getComplaints);
+router.put("/:id", complaintController.updateComplaint);
 
 module.exports = router;
