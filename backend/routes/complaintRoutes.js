@@ -1,15 +1,19 @@
-const router = require("express").Router()
-
-const auth = require("../middleware/authMiddleware")
+const express = require("express");
+const router = express.Router();
 
 const {
- createComplaint,
- getComplaints,
- updateComplaint
-} = require("../controllers/complaintController")
+  createComplaint,
+  getComplaints,
+  updateComplaint
+} = require("../controllers/complaintController");
 
-router.post("/",auth,createComplaint)
-router.get("/",auth,getComplaints)
-router.put("/:id",auth,updateComplaint)
+// Create complaint
+router.post("/", createComplaint);
 
-module.exports = router
+// Get all complaints
+router.get("/", getComplaints);
+
+// Update complaint status
+router.put("/:id", updateComplaint);
+
+module.exports = router;

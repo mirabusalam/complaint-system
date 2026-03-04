@@ -1,34 +1,45 @@
-exports.createComplaint = async(req,res)=>{
+const Complaint = require("../models/Complaint");
 
- try{
+// CREATE COMPLAINT
+exports.createComplaint = async (req, res) => {
+  try {
+    const complaint = await Complaint.create({
+      title: req.body.title,
+      description: req.body.description,
+      category: req.body.category || "general",
+      priority: req.body.priority || "Normal",
+      status: "Pending"
+    });
 
-  const text = req.body.description
+    res.json(complaint);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
-  const category = await classifyCategory(text)
 
-  const sentiment = await analyzeSentiment(text)
+// GET ALL COMPLAINTS
+exports.getComplaints = async (req, res) => {
+  try {
+    const complaints = await Complaint.find().sort({ createdAt: -1 });
+    res.json(complaints);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
-  const priority = detectPriority(text)
 
-  const complaint = await Complaint.create({
+// UPDATE COMPLAINT
+exports.updateComplaint = async (req, res) => {
+  try {
+    const complaint = await Complaint.findByIdAndUpdate(
+      req.params.id,
+      { status: req.body.status },
+      { new: true }
+    );
 
-   user:req.user.id,
-   title:req.body.title,
-   description:text,
-   category,
-   sentiment,
-   priority
-
-  })
-
-  req.io.emit("newComplaint",complaint)
-
-  res.json(complaint)
-
- }catch(err){
-
-  res.status(500).json({error:err.message})
-
- }
-
-}
+    res.json(complaint);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
