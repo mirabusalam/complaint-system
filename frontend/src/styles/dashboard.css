@@ -1,0 +1,36 @@
+.navbar{
+ background:#f0c66e;
+ padding:15px;
+ display:flex;
+ justify-content:space-between;
+}
+
+.container{
+ display:flex;
+}
+
+.sidebar{
+ width:220px;
+ background:#2f3b52;
+ color:rgb(194, 28, 28);
+ height:100vh;
+ padding:20px;
+}
+
+.sidebar a{
+ display:block;
+ color:rgb(32, 26, 26);
+ margin:15px 0;
+}
+
+.content{
+ padding:30px;
+ width:100%;
+ background:#724848;
+}
+
+.card{
+ border:1px solid #4a1313;
+ padding:10px;
+ margin:10px;
+}
