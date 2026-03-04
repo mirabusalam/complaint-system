@@ -1,42 +1,41 @@
-const express = require("express");
-const cors = require("cors");
-const http = require("http");
-const socketio = require("socket.io");
-require("dotenv").config();
+const express = require("express")
+const cors = require("cors")
+const http = require("http")
+const socketio = require("socket.io")
+require("dotenv").config()
 
-const connectDB = require("./config/db");
+const connectDB = require("./config/db")
 
-const authRoutes = require("./routes/authRoutes");
-const complaintRoutes = require("./routes/complaintRoutes");
+const authRoutes = require("./routes/authRoutes")
+const complaintRoutes = require("./routes/complaintRoutes")
 
-connectDB();
+connectDB()
 
-const app = express();
+const app = express()
 
-app.use(cors());
-app.use(express.json());
+app.use(cors())
+app.use(express.json())
 
-const server = http.createServer(app);
+const server = http.createServer(app)
 
-const io = socketio(server, {
-  cors: { origin: "*" }
-});
+const io = socketio(server,{
+ cors:{origin:"*"}
+})
 
-app.use((req, res, next) => {
-  req.io = io;
-  next();
-});
+app.use((req,res,next)=>{
+ req.io = io
+ next()
+})
 
-app.use("/api/auth", authRoutes);
-app.use("/api/complaints", complaintRoutes);
+app.use("/api/auth",authRoutes)
+app.use("/api/complaints",complaintRoutes)
 
-app.get("/", (req, res) => {
-  res.send("Complaint Management API Running");
-});
+app.get("/",(req,res)=>{
+ res.send("Complaint Management API Running")
+})
 
-// IMPORTANT FOR RENDER
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000
 
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+server.listen(PORT,()=>{
+ console.log(`Server running on port ${PORT}`)
+})
