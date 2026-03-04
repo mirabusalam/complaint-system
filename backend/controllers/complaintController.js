@@ -23,7 +23,6 @@ exports.createComplaint = async (req, res) => {
 };
 
 
-
 // GET ALL COMPLAINTS
 exports.getComplaints = async (req, res) => {
 
@@ -40,7 +39,6 @@ exports.getComplaints = async (req, res) => {
   }
 
 };
-
 
 
 // UPDATE COMPLAINT STATUS
